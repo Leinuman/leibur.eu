@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <meta charset="utf8">
+        <title>Leibur Solutions OÜ</title>
+        <link rel="stylesheet" href="theme.css">
+    </head>
+    <body>
+        <div id="header" onclick='window.location.href="/"'>
+            <img src="https://arisu.ee/static/img/emblem.png">
+            <div id="desc">
+                <h1> Leibur Solutions OÜ </h1>
+                <h2>~ For your freedumb needs ~</h2>
+            </div>
+        </div>
+        <div id="navigation">
+            <h2>Our proud members!</h2>
+            <div class="site-button" onclick='window.location.href="https://hrj.leibur.eu"'>
+                <img src="https://hrj.leibur.eu/hrj.jpg">
+                <h3>Hrjohn</h4>
+                <h5><i>hrjohn@leibur.eu</i></h5>
+            </div>
+            <div class="site-button">
+                <img src="https://arisu.ee/static/img/kek.png"></img>
+                <h3>Kekmas</h4>
+                <h5><i>Kek, tee veebileht palun!</i></h5>
+            </div>
+            <div class="site-button"  onclick='window.location.href="https://arisu.ee"'>
+                <img src="https://arisu.ee/static/img/leinu.png"></img>
+                <h3>Leinu</h4>
+                <h5><i>leinu@catpost.moe</i></h5>
+            </div>
+        </div>
+        <div id = content>
+            <div id="weather">
+                <h3>Current weather for you!</h3>
+                <pre id=wttr>Loading</pre>
+                <script>
+                    var localPre = document.getElementById("wttr");
+                    fetch("https://wttr.in/?0")
+                        .then(function(response){
+                            return response.text()
+                        })
+                        .then(function(html) {
+                            var parser = new DOMParser();
+                            var doc = parser.parseFromString(html, "text/html");
+                            var remotePre = doc.getElementsByTagName("pre");
+                            console.log(remotePre);
+                            localPre.innerHTML = remotePre[0].innerHTML;
+                        });
+                </script>
+            </div>
+            <div id="music" onclick='window.location.href="leiburcore.html"'>
+                <h3> Check out our cool music taste!</h3>
+                <pre>
+░░█▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+██▀▀▀██▀▀▀▀▀▀██▀▀▀██
+█▒▒▒▒▒█▒▀▀▀▀▒█▒▒▒▒▒█
+█▒▒▒▒▒█▒████▒█▒▒▒▒▒█
+██▄▄▄██▄▄▄▄▄▄██▄▄▄██
+                </pre>
+            </div>
+        </div>
+        <div id="news">
+            <h2>~ News ~</h2>
+            <script>
+                    var localNewsItems = document.getElementsByClassName('news-item');
+                    fetch("http://127.0.0.1:8080/news.html",{ // Siin siis muuta aadress kas "/news.html" v6i "https://hrj.leibur.eu/news.html" loe Readme'd
+                        mode: "same-origin"
+                    })
+                        .then(function(response){
+                            return response.text()
+                        })
+                        .then(function(html) {
+                            var parser = new DOMParser();
+                            var doc = parser.parseFromString(html, "text/html");
+                            var remoteNewsItems = doc.getElementsByClassName('news-item');
+                            for (let item = 0; item < 3; item++) {
+                                localNewsItems[item].innerHTML = remoteNewsItems[item].innerHTML;
+                            }
+                        });
+            </script>
+            <div class="news-item"></div>
+            <div class="news-item"></div>
+            <div class="news-item"></div>
+            <div class="button" onclick="window.location.href='news.html'"><p>Read the olds here</p></div>
+        </div>
+        <div id="footer">
+            <p><b><i>Copyleft 2024 leibur.eu</i></b></p>
+        </div>
+    </body>
+</html>
